@@ -34,7 +34,7 @@ public class ReservasiAcara extends Reservasi {
 
     public void setHargaPerOrang(double hargaPerOrang) {
         if (hargaPerOrang < 50000) {
-            this.hargaPerOrang = 50000; // harga minimum paket acara
+            this.hargaPerOrang = 50000;
         } else {
             this.hargaPerOrang = hargaPerOrang;
         }

@@ -48,7 +48,7 @@ public class ReservasiRetoran {
         }
         System.out.println("============ DAFTAR RESERVASI RESTORAN ============");
         for (int i = 0; i < jumlahData; i++) {
-            daftar[i].tampilkanInfo(); // versi subclass yang berjalan (overriding)
+            daftar[i].tampilkanInfo();
             System.out.println("---------------------------------------------------");
         }
         System.out.println("Total reservasi dibuat: " + Reservasi.getTotalReservasi());
@@ -56,7 +56,7 @@ public class ReservasiRetoran {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
+        
         // Data awal (5 objek)
         tambah(new ReservasiMeja("Andi", 4, 12, 5, "Indoor"));
         tambah(new ReservasiMeja("Sinta", 2, 19, 12, "Outdoor"));

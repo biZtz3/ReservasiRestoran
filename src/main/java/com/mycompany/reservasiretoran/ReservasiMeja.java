@@ -2,10 +2,9 @@ package com.mycompany.reservasiretoran;
 
 public class ReservasiMeja extends Reservasi {
     private int nomorMeja;
-    private String area; // "Indoor" atau "Outdoor"
+    private String area; //
 
-    public ReservasiMeja(String namaPelanggan, int jumlahOrang, int jam,
-                         int nomorMeja, String area) {
+    public ReservasiMeja(String namaPelanggan, int jumlahOrang, int jam, int nomorMeja, String area) {
         super(namaPelanggan, jumlahOrang, jam);
         setNomorMeja(nomorMeja);
         setArea(area);

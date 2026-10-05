@@ -4,7 +4,7 @@ public class Reservasi {
     private String kodeReservasi;
     private String namaPelanggan;
     private int jumlahOrang;
-    private int jam; // jam kedatangan, format 24 jam (restoran buka 10-22)
+    private int jam;
 
     private static int totalReservasi = 0;
 
@@ -42,7 +42,7 @@ public class Reservasi {
 
     public void setJam(int jam) {
         if (jam < 10 || jam > 22) {
-            this.jam = 10; // di luar jam operasional -> jam buka
+            this.jam = 10;
         } else {
             this.jam = jam;
         }
