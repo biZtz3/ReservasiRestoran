@@ -1,6 +1,6 @@
 package com.mycompany.reservasiretoran;
 
-public class ReservasiAcara extends Reservasi {
+public class ReservasiAcara extends Reservasi { //acara bisa ulang tahun, arisan, dll
     private String jenisAcara;
     private String paketMenu;
     private double hargaPerOrang;
@@ -17,21 +17,21 @@ public class ReservasiAcara extends Reservasi {
     public double getHargaPerOrang() { return hargaPerOrang; }
 
     public void setJenisAcara(String jenisAcara) {
-        if (jenisAcara == null || jenisAcara.trim().isEmpty()) {
+        if (jenisAcara == null || jenisAcara.length() == 0) {
             this.jenisAcara = "Acara Umum";
         } else {
-            this.jenisAcara = jenisAcara.trim();
+            this.jenisAcara = jenisAcara;
         }
     }
-
-    public void setPaketMenu(String paketMenu) {
-        if (paketMenu == null || paketMenu.trim().isEmpty()) {
+  
+     public void setPaketMenu(String paketMenu) {
+        if (paketMenu == null || paketMenu.length() == 0) {
             this.paketMenu = "Paket A";
         } else {
-            this.paketMenu = paketMenu.trim();
+            this.paketMenu = paketMenu;
         }
     }
-
+        
     public void setHargaPerOrang(double hargaPerOrang) {
         if (hargaPerOrang < 50000) {
             this.hargaPerOrang = 50000;
@@ -48,7 +48,7 @@ public class ReservasiAcara extends Reservasi {
     @Override
     public void tampilkanInfo() {
         super.tampilkanInfo();
-        System.out.printf("          -> Acara | %s | %s @Rp%,.0f | DP 30%% Rp%,.0f%n",
+        System.out.printf("-> Acara | %s | %s @Rp%,.0f | DP 30%% Rp%,.0f%n",
                 jenisAcara, paketMenu, hargaPerOrang, hitungBiaya());
     }
 }
