@@ -40,6 +40,22 @@ public class ReservasiRetoran {
             System.out.printf("Tidak ada reservasi pada jam %02d:00.%n", jam);
         }
     }
+    
+    static void prosesReservasi(Reservasi r) {
+        System.out.println("------------ PROSES RESERVASI ------------");
+        r.tampilkanInfo();
+        System.out.printf("Biaya yang harus dibayar : Rp%.0f%n", r.hitungBiaya());
+        System.out.println("------------------------------------------");
+    }
+ 
+    static void prosesReservasi(Reservasi r, double diskonPersen) {
+        System.out.println("------------ PROSES RESERVASI ------------");
+        r.tampilkanInfo();
+        System.out.printf("Biaya sebelum diskon     : Rp%.0f%n", r.hitungBiaya());
+        System.out.printf("Diskon                   : %.0f persen%n", diskonPersen);
+        System.out.printf("Biaya setelah diskon     : Rp%.0f%n", r.hitungBiaya(diskonPersen));
+        System.out.println("------------------------------------------");
+    }
 
     static void tampilkanSemua() {
         if (jumlahData == 0) {
@@ -63,6 +79,9 @@ public class ReservasiRetoran {
         tambah(new ReservasiAcara("Budi", 20, 18, "Ulang Tahun", "Paket B", 85000));
         tambah(new ReservasiAcara("Dewi", 12, 13, "Arisan", "Paket A", 65000));
         tambah(new ReservasiMeja("Rafi", 3, 19, 7, "Indoor"));
+        tambah(new ReservasiVIP("Hendra", 8, 19, "VIP Anggrek", 3));
+        tambah(new ReservasiVIP("Maya", 6, 12, "VIP Melati", 2));
+
 
         int pilihan;
         do {
@@ -70,14 +89,15 @@ public class ReservasiRetoran {
             System.out.println("1. Tambah Reservasi Baru");
             System.out.println("2. Tampilkan Seluruh Reservasi");
             System.out.println("3. Cari Reservasi");
-            System.out.println("4. Keluar");
+            System.out.println("4. Simulasi Proses Reservasi ");
+            System.out.println("5. Keluar");
             System.out.print("Pilih menu: ");
             pilihan = input.nextInt();
             input.nextLine();
 
             switch (pilihan) {
                 case 1:
-                    System.out.println("Jenis reservasi: 1. Meja  2. Acara");
+                    System.out.println("Jenis reservasi: 1. Meja  2. Acara  3.VIP");
                     System.out.print("Pilih jenis: ");
                     int jenis = input.nextInt();
                     input.nextLine();
@@ -102,7 +122,7 @@ public class ReservasiRetoran {
                         System.out.print("Area (Indoor/Outdoor): ");
                         String area = input.nextLine();
                         tambah(new ReservasiMeja(nama, orang, jam, meja, area));
-                    } else {
+                    } else if (jenis ==2){
                         System.out.print("Jenis acara    : ");
                         String acara = input.nextLine();
                         System.out.print("Paket menu     : ");
@@ -111,8 +131,14 @@ public class ReservasiRetoran {
                         double harga = input.nextDouble();
                         input.nextLine();
                         tambah(new ReservasiAcara(nama, orang, jam, acara, paket, harga));
+                    } else {
+                        System.out.print("Nama ruangan VIP : ");
+                        String ruangan = input.nextLine();
+                        System.out.print("Durasi (1-6 jam) : ");
+                        int durasi = input.nextInt();
+                        input.nextLine();
+                        tambah(new ReservasiVIP(nama, orang, jam, ruangan, durasi));
                     }
-                    System.out.println("Reservasi berhasil ditambahkan.");
                     break;
 
                 case 2:
@@ -137,14 +163,45 @@ public class ReservasiRetoran {
                     break;
 
                 case 4:
+                    if (jumlahData == 0) {
+                        System.out.println("Belum ada data reservasi.");
+                        break;
+                    }
+                    System.out.println("Simulasi: 1. Proses satu reservasi  2. Proses semua reservasi");
+                    System.out.print("Pilih: ");
+                    int mode = input.nextInt();
+                    input.nextLine();
+                    if (mode == 1) {
+                        System.out.print("Nomor urut reservasi (1-" + jumlahData + "): ");
+                        int nomor = input.nextInt();
+                        System.out.print("Diskon persen (0 jika tanpa diskon): ");
+                        double diskon = input.nextDouble();
+                        input.nextLine();
+                        if (nomor < 1 || nomor > jumlahData) {
+                            System.out.println("Nomor tidak valid!");
+                        } else if (diskon > 0) {
+                            prosesReservasi(daftar[nomor - 1], diskon); 
+                        } else {
+                            prosesReservasi(daftar[nomor - 1]);        
+                        }
+                    } else if (mode == 2) {
+                        for (int i = 0; i < jumlahData; i++) {
+                            prosesReservasi(daftar[i]);
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak valid!");
+                    }
+                    break;
+                
+                case 5:
                     System.out.println("Terima kasih! Program selesai.");
                     break;
-
+ 
                 default:
                     System.out.println("Menu tidak tersedia!");
             }
-        } while (pilihan != 4);
-
+        } while (pilihan != 5);
+ 
         input.close();
     }
 }
