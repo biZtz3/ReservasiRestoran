@@ -44,5 +44,3 @@ public class ReservasiVIP extends Reservasi {
                 namaRuangan, durasiJam, hitungBiaya());
     }
 }
-    
-}
