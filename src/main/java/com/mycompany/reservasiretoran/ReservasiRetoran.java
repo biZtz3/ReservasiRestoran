@@ -102,7 +102,7 @@ public class ReservasiRetoran {
                     int jenis = input.nextInt();
                     input.nextLine();
 
-                    if (jenis != 1 && jenis != 2) {
+                    if (jenis < 1 || jenis > 3) {
                         System.out.println("Jenis tidak valid!");
                         break;
                     }
@@ -139,6 +139,7 @@ public class ReservasiRetoran {
                         input.nextLine();
                         tambah(new ReservasiVIP(nama, orang, jam, ruangan, durasi));
                     }
+                    System.out.println("Terimakasih, reservasi berhasil!");
                     break;
 
                 case 2:
