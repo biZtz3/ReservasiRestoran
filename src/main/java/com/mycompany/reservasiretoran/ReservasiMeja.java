@@ -2,7 +2,7 @@ package com.mycompany.reservasiretoran;
 
 public class ReservasiMeja extends Reservasi {
     private int nomorMeja;
-    private String area; //
+    private String area;
 
     public ReservasiMeja(String namaPelanggan, int jumlahOrang, int jam, int nomorMeja, String area) {
         super(namaPelanggan, jumlahOrang, jam);
@@ -22,7 +22,7 @@ public class ReservasiMeja extends Reservasi {
     }
 
     public void setArea(String area) {
-        if (area != null && area.equalsIgnoreCase("Outdoor")) {
+        if (area != null && area.toLowerCase().contains("outdoor")) {
             this.area = "Outdoor";
         } else {
             this.area = "Indoor";
