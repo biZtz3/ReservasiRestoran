@@ -10,7 +10,13 @@ public class Reservasi {
 
     public Reservasi(String namaPelanggan, int jumlahOrang, int jam) {
         totalReservasi++;
-        this.kodeReservasi = String.format("RSV-%03d", totalReservasi);
+        if (totalReservasi < 10) {
+            this.kodeReservasi = "RSV-00" + totalReservasi;
+        } else if (totalReservasi < 100) {
+            this.kodeReservasi = "RSV-0" + totalReservasi;
+        } else {
+            this.kodeReservasi = "RSV-" + totalReservasi;
+        }
         setNamaPelanggan(namaPelanggan);
         setJumlahOrang(jumlahOrang);
         setJam(jam);
@@ -22,11 +28,12 @@ public class Reservasi {
     public int getJam() { return jam; }
     public static int getTotalReservasi() { return totalReservasi; }
 
-    public void setNamaPelanggan(String namaPelanggan) {
-        if (namaPelanggan == null || namaPelanggan.trim().isEmpty()) {
+    
+     public void setNamaPelanggan(String namaPelanggan) {
+        if (namaPelanggan == null || namaPelanggan.length() == 0) {
             this.namaPelanggan = "Tanpa Nama";
         } else {
-            this.namaPelanggan = namaPelanggan.trim();
+            this.namaPelanggan = namaPelanggan;
         }
     }
 
@@ -58,8 +65,7 @@ public class Reservasi {
     }
 
     public void tampilkanInfo() {
-        System.out.printf("%-9s | %-15s | %2d orang | Jam %02d:00%n",
-                kodeReservasi, namaPelanggan, jumlahOrang, jam);
+        System.out.printf("%-9s | %-15s | %2d orang | Jam %02d:00%n", kodeReservasi, namaPelanggan, jumlahOrang, jam);
     }
 }
 
