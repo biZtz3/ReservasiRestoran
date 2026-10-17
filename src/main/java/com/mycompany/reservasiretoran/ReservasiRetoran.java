@@ -56,7 +56,25 @@ public class ReservasiRetoran {
         System.out.printf("Biaya setelah diskon     : Rp%.0f%n", r.hitungBiaya(diskonPersen));
         System.out.println("------------------------------------------");
     }
-
+    
+    static void aksiPreorder(Reservasi r){
+        if (r instanceof DapatPreOrder){
+            DapatPreOrder itemPreOrder = (DapatPreOrder) r;
+            itemPreOrder.prosesPreOrder();     
+        } else {
+            System.out.println("-> Reservasi \" + r.getKodeReservasi() + \" tidak mendukung pre-order.");
+        }
+    }
+    
+    static void aksiBatalkan(Reservasi r, String alasan) {
+        if (r instanceof DapatDibatalkan) {
+            DapatDibatalkan itemBisaBatal = (DapatDibatalkan) r;
+            itemBisaBatal.batalkanReservasi(alasan);
+        } else {
+            System.out.println("-> Reservasi " + r.getKodeReservasi() + " tidak bisa dibatalkan.");
+        }
+    }
+    
     static void tampilkanSemua() {
         if (jumlahData == 0) {
             System.out.println("Belum ada data reservasi.");
@@ -65,6 +83,7 @@ public class ReservasiRetoran {
         System.out.println("============ DAFTAR RESERVASI RESTORAN ============");
         for (int i = 0; i < jumlahData; i++) {
             daftar[i].tampilkanInfo();
+            daftar[i].tampilkanKetentuan();
             System.out.println("---------------------------------------------------");
         }
         System.out.println("Total reservasi dibuat: " + Reservasi.getTotalReservasi());
@@ -193,15 +212,54 @@ public class ReservasiRetoran {
                         System.out.println("Pilihan tidak valid!");
                     }
                     break;
-                
+                    
                 case 5:
+                    if (jumlahData == 0) {
+                        System.out.println("Belum ada data reservasi.");
+                        break;
+                    }
+                    System.out.println("Aksi khusus: 1. Pre-order menu  2. Batalkan reservasi  3. Coba semua aksi ke seluruh reservasi");
+                    System.out.print("Pilih: ");
+                    int aksi = input.nextInt();
+                    input.nextLine();
+                    if (aksi == 1 || aksi == 2) {
+                        System.out.print("Nomor urut reservasi (1-" + jumlahData + "): ");
+                        int urut = input.nextInt();
+                        input.nextLine();
+                        if (urut < 1 || urut > jumlahData) {
+                            System.out.println("Nomor tidak valid!");
+                        } else {
+                            daftar[urut - 1].tampilkanInfo();
+                            if (aksi == 1) {
+                                aksiPreOrder(daftar[urut - 1]);
+                            } else {
+                                System.out.print("Alasan pembatalan: ");
+                                String alasan = input.nextLine();
+                                aksiBatalkan(daftar[urut - 1], alasan);
+                            }
+                        }
+                    } else if (aksi == 3) {
+                        System.out.println("=========== SIMULASI AKSI KHUSUS ===========");
+                        for (int i = 0; i < jumlahData; i++) {
+                            daftar[i].tampilkanInfo();
+                            aksiPreOrder(daftar[i]);
+                            aksiBatalkan(daftar[i], "Pelanggan berhalangan hadir");
+                            System.out.println("---------------------------------------------");
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak valid!");
+                    }
+                    break;
+                    
+                    
+                case 6:
                     System.out.println("Terima kasih! Program selesai.");
                     break;
  
                 default:
                     System.out.println("Menu tidak tersedia!");
             }
-        } while (pilihan != 5);
+        } while (pilihan != 6);
  
         input.close();
     }
