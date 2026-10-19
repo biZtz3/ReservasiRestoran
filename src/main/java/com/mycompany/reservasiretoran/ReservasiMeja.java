@@ -50,7 +50,7 @@ public class ReservasiMeja extends Reservasi implements DapatDibatalkan{
     //override method dari interface DapatDibatalkan
     @Override
     public void batalkanReservasi(String alasan){
-        System.out.println("-> [PEMBATALAN] Meja \" + nomorMeja + \" (\" + area + \") dibatalkan. Alasan: \" + alasan");
+        System.out.println("-> [PEMBATALAN] Meja" + nomorMeja + " (" + area + ") dibatalkan. Alasan: " + alasan");
         System.out.println("-> Deposit dikembalikan jika batal minimal 2 jam sebelum jam reservasi.");
     }
 }
