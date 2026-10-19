@@ -56,16 +56,18 @@ public class ReservasiRetoran {
         System.out.printf("Biaya setelah diskon     : Rp%.0f%n", r.hitungBiaya(diskonPersen));
         System.out.println("------------------------------------------");
     }
-    
-    static void aksiPreorder(Reservasi r){
-        if (r instanceof DapatPreOrder){
+
+    // MODUL 7: pengecekan instanceof sebelum memanggil method interface DapatPreOrder
+    static void aksiPreOrder(Reservasi r) {
+        if (r instanceof DapatPreOrder) {
             DapatPreOrder itemPreOrder = (DapatPreOrder) r;
-            itemPreOrder.prosesPreOrder();     
+            itemPreOrder.prosesPreOrder();
         } else {
-            System.out.println("-> Reservasi \" + r.getKodeReservasi() + \" tidak mendukung pre-order.");
+            System.out.println("-> Reservasi " + r.getKodeReservasi() + " tidak mendukung pre-order.");
         }
     }
-    
+
+    //pengecekan instanceof sebelum memanggil method interface DapatDibatalkan
     static void aksiBatalkan(Reservasi r, String alasan) {
         if (r instanceof DapatDibatalkan) {
             DapatDibatalkan itemBisaBatal = (DapatDibatalkan) r;
@@ -74,7 +76,7 @@ public class ReservasiRetoran {
             System.out.println("-> Reservasi " + r.getKodeReservasi() + " tidak bisa dibatalkan.");
         }
     }
-    
+
     static void tampilkanSemua() {
         if (jumlahData == 0) {
             System.out.println("Belum ada data reservasi.");
@@ -83,7 +85,7 @@ public class ReservasiRetoran {
         System.out.println("============ DAFTAR RESERVASI RESTORAN ============");
         for (int i = 0; i < jumlahData; i++) {
             daftar[i].tampilkanInfo();
-            daftar[i].tampilkanKetentuan();
+            daftar[i].tampilkanKetentuan(); //memanggil abstract method hasil override
             System.out.println("---------------------------------------------------");
         }
         System.out.println("Total reservasi dibuat: " + Reservasi.getTotalReservasi());
@@ -109,7 +111,8 @@ public class ReservasiRetoran {
             System.out.println("2. Tampilkan Seluruh Reservasi");
             System.out.println("3. Cari Reservasi");
             System.out.println("4. Simulasi Proses Reservasi ");
-            System.out.println("5. Keluar");
+            System.out.println("5. Aksi Khusus (Pre-Order / Pembatalan)");
+            System.out.println("6. Keluar");
             System.out.print("Pilih menu: ");
             pilihan = input.nextInt();
             input.nextLine();
@@ -212,7 +215,8 @@ public class ReservasiRetoran {
                         System.out.println("Pilihan tidak valid!");
                     }
                     break;
-                    
+
+                //menu baru untuk menjalankan method interface
                 case 5:
                     if (jumlahData == 0) {
                         System.out.println("Belum ada data reservasi.");
@@ -250,8 +254,7 @@ public class ReservasiRetoran {
                         System.out.println("Pilihan tidak valid!");
                     }
                     break;
-                    
-                    
+                
                 case 6:
                     System.out.println("Terima kasih! Program selesai.");
                     break;
