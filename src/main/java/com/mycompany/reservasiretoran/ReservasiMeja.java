@@ -1,7 +1,7 @@
 package com.mycompany.reservasiretoran;
  
 //implements 1 interface (DapatDibatalkan)
-public class ReservasiMeja extends Reservasi implements DapatDibatalkan {
+public class ReservasiMeja extends Reservasi implements DapatDiBatalkan {
     private int nomorMeja;
     private String area;
  
