@@ -69,8 +69,8 @@ public class ReservasiRetoran {
  
     //pengecekan instanceof sebelum memanggil method interface DapatDibatalkan
     static void aksiBatalkan(Reservasi r, String alasan) {
-        if (r instanceof DapatDibatalkan) {
-            DapatDibatalkan itemBisaBatal = (DapatDibatalkan) r;
+        if (r instanceof DapatDiBatalkan) {
+            DapatDiBatalkan itemBisaBatal = (DapatDiBatalkan) r;
             itemBisaBatal.batalkanReservasi(alasan);
         } else {
             System.out.println("-> Reservasi " + r.getKodeReservasi() + " tidak bisa dibatalkan.");
