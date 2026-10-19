@@ -1,6 +1,7 @@
 package com.mycompany.reservasiretoran;
 
-public class ReservasiMeja extends Reservasi {
+//implements satu interface (DapatDibatalkan)
+public class ReservasiMeja extends Reservasi implements DapatDibatalkan{
     private int nomorMeja;
     private String area;
 
@@ -20,7 +21,6 @@ public class ReservasiMeja extends Reservasi {
             this.nomorMeja = nomorMeja;
         }
     }
-
     public void setArea(String area) {
         if (area != null && area.toLowerCase().contains("outdoor")) {
             this.area = "Outdoor";
@@ -39,6 +39,19 @@ public class ReservasiMeja extends Reservasi {
         super.tampilkanInfo();
         System.out.printf("-> Meja  | Meja %d (%s) | Deposit Rp%,.0f%n",
                 nomorMeja, area, hitungBiaya());
+    }
+    
+    //override abstract method dari superclass
+    @Override
+    public void tampilkanKetentuan(){
+        System.out.println("-> Ketentuan Meja: deposit dikembalikan jika pelanggan hadir tepat waktu.");
+    }
+    
+    //override method dari interface DapatDibatalkan
+    @Override
+    public void batalkanReservasi(String alasan){
+        System.out.println("-> [PEMBATALAN] Meja \" + nomorMeja + \" (\" + area + \") dibatalkan. Alasan: \" + alasan");
+        System.out.println("-> Deposit dikembalikan jika batal minimal 2 jam sebelum jam reservasi.");
     }
 }
 
