@@ -1,6 +1,7 @@
 package com.mycompany.reservasiretoran;
 
-public class ReservasiAcara extends Reservasi { //acara bisa ulang tahun, arisan, dll
+//implements satu interface (DapatPreOrder)
+public class ReservasiAcara extends Reservasi implements DapatPreOrder{ //acara bisa ulang tahun, arisan, dll
     private String jenisAcara;
     private String paketMenu;
     private double hargaPerOrang;
@@ -51,4 +52,16 @@ public class ReservasiAcara extends Reservasi { //acara bisa ulang tahun, arisan
         System.out.printf("-> Acara | %s | %s @Rp%,.0f | DP 30%% Rp%,.0f%n",
                 jenisAcara, paketMenu, hargaPerOrang, hitungBiaya());
     }
+    
+    //override abstract method dari superclass
+    @Override
+    public void tampilkanKetentuan(){
+        System.out.println("-> Ketentuan Acara: DP 30% dibayar di muka, sisanya dilunasi di hari acara.");
+    }
+    
+    //override method dari interface DapatPreOrder
+    @Override
+    public void prosesPreOrder(){
+        System.out.println("-> [PRE-ORDER] \" + paketMenu + \" untuk acara \" + jenisAcara + \" disiapkan dapur sebelum acara.");
+    }   
 }
