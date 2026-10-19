@@ -1,6 +1,7 @@
 package com.mycompany.reservasiretoran;
 
-public class ReservasiVIP extends Reservasi {
+//multiple implements (2 interface sekaligus)
+public class ReservasiVIP extends Reservasi implements DapatPreOrder, DapatDibatalkan{
     private String namaRuangan;
     private int durasiJam; // lama pemakaian ruangan (1-6 jam)
 
@@ -31,7 +32,7 @@ public class ReservasiVIP extends Reservasi {
         }
     }
 
-    // OVERRIDING: biaya sewa ruangan Rp150.000 per jam
+    //overriding biaya sewa ruangan Rp150.000 per jam
     @Override
     public double hitungBiaya() {
         return durasiJam * 150000;
@@ -42,5 +43,23 @@ public class ReservasiVIP extends Reservasi {
         super.tampilkanInfo();
         System.out.printf("-> VIP   | %s | %d jam | Sewa Rp%.0f%n",
                 namaRuangan, durasiJam, hitungBiaya());
+    }
+    
+    //override abstract method dari superclass
+    @Override
+    public void tampilkanKetentuan(){
+        System.out.println("-> Ketentuan VIP: ruangan dipakai maksimal 6 jam, sewa Rp150.000 per jam.");
+    }
+    
+    //override method dari interface DapatPreOrder
+    public void prosesPreOrder(){
+        System.out.println("-> [PRE-ORDER] Menu dipesan lebih dulu dan disajikan di " + namaRuangan + ".");
+    }
+    
+    //override method dari interface DapatDibatalkan
+    @Override
+    public void batalkanReservasi(String alasan){
+        System.out.println("-> [PEMBATALAN] Ruangan " + namaRuangan + " dibatalkan. Alasan: " + alasan);
+        System.out.println("-> Slot ruangan dilepas kembali untuk pelanggan lain.");
     }
 }
