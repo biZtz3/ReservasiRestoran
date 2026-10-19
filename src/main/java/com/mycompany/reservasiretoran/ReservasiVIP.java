@@ -1,7 +1,7 @@
 package com.mycompany.reservasiretoran;
  
 //multiple implements(2 interface sekaligus)
-public class ReservasiVIP extends Reservasi implements DapatPreOrder, DapatDibatalkan {
+public class ReservasiVIP extends Reservasi implements DapatPreOrder, DapatDiBatalkan {
     private String namaRuangan;
     private int durasiJam; // lama pemakaian ruangan (1-6 jam)
  
@@ -57,7 +57,7 @@ public class ReservasiVIP extends Reservasi implements DapatPreOrder, DapatDibat
         System.out.println("-> [PRE-ORDER] Menu dipesan lebih dulu dan disajikan di " + namaRuangan + ".");
     }
  
-    //override method dari interface DapatDibatalkan
+    //override method dari interface DapatDiBatalkan
     @Override
     public void batalkanReservasi(String alasan) {
         System.out.println("-> [PEMBATALAN] Ruangan " + namaRuangan + " dibatalkan. Alasan: " + alasan);
