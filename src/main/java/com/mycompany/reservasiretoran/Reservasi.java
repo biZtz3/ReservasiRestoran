@@ -1,6 +1,7 @@
 package com.mycompany.reservasiretoran;
 
-public class Reservasi {
+//class diubah jadi abstract class
+public abstract class Reservasi {
     private String kodeReservasi;
     private String namaPelanggan;
     private int jumlahOrang;
@@ -67,5 +68,8 @@ public class Reservasi {
     public void tampilkanInfo() {
         System.out.printf("%-9s | %-15s | %2d orang | Jam %02d:00%n", kodeReservasi, namaPelanggan, jumlahOrang, jam);
     }
+    
+    public abstract void tampilkanKetentuan();
+    
 }
 
