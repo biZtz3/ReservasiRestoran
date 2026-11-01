@@ -25,19 +25,29 @@ public class ReservasiRetoran {
             throw new ReservasiTidakDitemukanException("Reservasi atas nama \"" + nama + "\" tidak ditemukan.");
         }
     }
- 
-    static void cariReservasi(int jam) throws ReserevasiTidakDitemukanException {   
-        
-    }
+    
+    static void cariReservasi(int jam) throws ReservasiTidakDitemukanException {
         boolean ketemu = false;
-        for (int i = 0; i < jumlahData; i++) {
-            if (daftar[i].getJam() == jam) {
-                daftar[i].tampilkanInfo();
+        for (int i = 0; i < daftar.size(); i++) {
+            if (daftar.get(i).getJam() == jam) {
+                daftar.get(i).tampilkanInfo();
                 ketemu = true;
             }
         }
         if (!ketemu) {
-            System.out.printf("Tidak ada reservasi pada jam %02d:00.%n", jam);
+            throw new ReservasiTidakDitemukanException("Tidak ada reservasi pada jam " + jam + ":00.");
+        }
+    }
+ 
+    static void validasiInput(String nama, int orang, int jam) throws Exception {
+        if (nama.isEmpty()) {
+            throw new Exception("Nama pelanggan tidak boleh kosong!");
+        }
+        if (orang < 1 || orang > 30) {
+            throw new Exception("Jumlah orang harus 1 sampai 30!");
+        }
+        if (jam < 10 || jam > 22) {
+            throw new Exception("Jam operasional hanya 10 sampai 22!");
         }
     }
     
@@ -57,7 +67,6 @@ public class ReservasiRetoran {
         System.out.println("------------------------------------------");
     }
  
-    //pengecekan instanceof sebelum memanggil method interface DapatPreOrder
     static void aksiPreOrder(Reservasi r) {
         if (r instanceof DapatPreOrder) {
             DapatPreOrder itemPreOrder = (DapatPreOrder) r;
@@ -66,8 +75,7 @@ public class ReservasiRetoran {
             System.out.println("-> Reservasi " + r.getKodeReservasi() + " tidak mendukung pre-order.");
         }
     }
- 
-    //pengecekan instanceof sebelum memanggil method interface DapatDibatalkan
+
     static void aksiBatalkan(Reservasi r, String alasan) {
         if (r instanceof DapatDiBatalkan) {
             DapatDiBatalkan itemBisaBatal = (DapatDiBatalkan) r;
@@ -78,14 +86,14 @@ public class ReservasiRetoran {
     }
  
     static void tampilkanSemua() {
-        if (jumlahData == 0) {
+        if (daftar.isEmpty()) {
             System.out.println("Belum ada data reservasi.");
             return;
         }
         System.out.println("============ DAFTAR RESERVASI RESTORAN ============");
         for (int i = 0; i < jumlahData; i++) {
             daftar[i].tampilkanInfo();
-            daftar[i].tampilkanKetentuan(); //memanggil abstract method hasil override
+            daftar[i].tampilkanKetentuan();
             System.out.println("---------------------------------------------------");
         }
         System.out.println("Total reservasi dibuat: " + Reservasi.getTotalReservasi());
@@ -94,7 +102,13 @@ public class ReservasiRetoran {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
-        // Data awal (5 objek)
+        
+        HashMap<String, String> dataMember = new HashMap<>();
+        dataMember.put("MBR001", "Andi");
+        dataMember.put("MBR002", "Sinta");
+        dataMember.put("MBR003", "Hendra");
+       
+        
         tambah(new ReservasiMeja("Andi", 4, 12, 5, "Indoor"));
         tambah(new ReservasiMeja("Sinta", 2, 19, 12, "Outdoor"));
         tambah(new ReservasiAcara("Budi", 20, 18, "Ulang Tahun", "Paket B", 85000));
@@ -104,7 +118,7 @@ public class ReservasiRetoran {
         tambah(new ReservasiVIP("Maya", 6, 12, "VIP Melati", 2));
  
  
-        int pilihan;
+        int pilihan = 0;
         do {
             System.out.println("\n===== SISTEM RESERVASI RESTORAN =====");
             System.out.println("1. Tambah Reservasi Baru");
@@ -112,10 +126,14 @@ public class ReservasiRetoran {
             System.out.println("3. Cari Reservasi");
             System.out.println("4. Simulasi Proses Reservasi ");
             System.out.println("5. Aksi Khusus (Pre-Order / Pembatalan)");
-            System.out.println("6. Keluar");
+            System.out.println("6. Kelola Member (HashMap)");
+            System.out.println("7. Keluar");
             System.out.print("Pilih menu: ");
-            pilihan = input.nextInt();
-            input.nextLine();
+            
+            
+            try {
+                pilihan = input.nextInt();
+                input.nextLine();
  
             switch (pilihan) {
                 case 1:
