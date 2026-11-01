@@ -1,34 +1,34 @@
 package com.mycompany.reservasiretoran;
- 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException; 
 import java.util.Scanner;
  
 public class ReservasiRetoran {
-    static Reservasi[] daftar = new Reservasi[50];
-    static int jumlahData = 0;
- 
+    static ArrayList<Reservasi> daftar = new ArrayList<>();
+    
     static void tambah(Reservasi r) {
-        if (jumlahData < daftar.length) {
-            daftar[jumlahData] = r;
-            jumlahData++;
-        } else {
-            System.out.println("Kapasitas penuh!");
-        }
+        daftar.add(r);
     }
  
-    static void cariReservasi(String nama) {
+    static void cariReservasi(String nama) throws ReservasiTidakDitemukanException {
         boolean ketemu = false;
-        for (int i = 0; i < jumlahData; i++) {
-            if (daftar[i].getNamaPelanggan().toLowerCase().contains(nama.toLowerCase())) {
-                daftar[i].tampilkanInfo();
+        for (int i = 0; i < daftar.size(); i++) {
+            if (daftar.get(i).getNamaPelanggan().toLowerCase().contains(nama.toLowerCase())) {
+                daftar.get(i).tampilkanInfo();
                 ketemu = true;
             }
         }
         if (!ketemu) {
-            System.out.println("Reservasi atas nama \"" + nama + "\" tidak ditemukan.");
+            if (!ketemu) {
+            throw new ReservasiTidakDitemukanException("Reservasi atas nama \"" + nama + "\" tidak ditemukan.");
         }
     }
  
-    static void cariReservasi(int jam) {
+    static void cariReservasi(int jam) throws ReserevasiTidakDitemukanException {   
+        
+    }
         boolean ketemu = false;
         for (int i = 0; i < jumlahData; i++) {
             if (daftar[i].getJam() == jam) {
