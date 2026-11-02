@@ -134,8 +134,8 @@ public class ReservasiRetoran {
             try {
                 pilihan = input.nextInt();
                 input.nextLine();
- 
-            switch (pilihan) {
+                
+                switch (pilihan) {
                 case 1:
                     System.out.println("Jenis reservasi: 1. Meja  2. Acara  3.VIP");
                     System.out.print("Pilih jenis: ");
@@ -154,6 +154,8 @@ public class ReservasiRetoran {
                     System.out.print("Jam (10-22)    : ");
                     int jam = input.nextInt();
                     input.nextLine();
+                    
+                    validasiInput(nama, orang, jam);
  
                     if (jenis == 1) {
                         System.out.print("Nomor meja (1-30): ");
@@ -191,6 +193,9 @@ public class ReservasiRetoran {
                     System.out.print("Pilih: ");
                     int cari = input.nextInt();
                     input.nextLine();
+                    
+                    try {
+                    
                     if (cari == 1) {
                         System.out.print("Masukkan nama: ");
                         cariReservasi(input.nextLine());
@@ -201,7 +206,13 @@ public class ReservasiRetoran {
                     } else {
                         System.out.println("Pilihan tidak valid!");
                     }
-                    break;
+                    
+                } catch (ReservasiTidakDitemukanException e) {
+                            System.out.println("Peringatan: " + e.getMessage());
+                        } finally {
+                            System.out.println("-> Sesi pencarian selesai dieksekusi.");
+                        }
+                        break;
  
                 case 4:
                     if (jumlahData == 0) {
@@ -234,7 +245,6 @@ public class ReservasiRetoran {
                     }
                     break;
  
-                //menu baru untuk menjalankan method interface
                 case 5:
                     if (jumlahData == 0) {
                         System.out.println("Belum ada data reservasi.");
