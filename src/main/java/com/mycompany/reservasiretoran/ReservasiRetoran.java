@@ -43,8 +43,8 @@ public class ReservasiRetoran {
     }
 
     static void aksiBatalkan(Reservasi r, String alasan) {
-        if (r instanceof DapatDibatalkan) {
-            DapatDibatalkan itemBisaBatal = (DapatDibatalkan) r;
+        if (r instanceof DapatDiBatalkan) {
+            DapatDiBatalkan itemBisaBatal = (DapatDiBatalkan) r;
             itemBisaBatal.batalkanReservasi(alasan);
         } else {
             System.out.println("-> Reservasi " + r.getKodeReservasi() + " tidak bisa dibatalkan.");
@@ -65,6 +65,7 @@ public class ReservasiRetoran {
         restoranUtama.tambahReservasi(new ReservasiVIP("Hendra", 8, 19, "VIP Anggrek", 3));
         restoranUtama.tambahReservasi(new ReservasiVIP("Maya", 6, 12, "VIP Melati", 2));
 
+        // Data awal member (3 objek)
         restoranUtama.tambahMember(new Member("MBR001", "Andi"));
         restoranUtama.tambahMember(new Member("MBR002", "Sinta"));
         restoranUtama.tambahMember(new Member("MBR003", "Hendra"));
@@ -266,6 +267,7 @@ public class ReservasiRetoran {
                         }
                         break;
 
+                        
                     case 7:
                         System.out.println("\n-- Transaksi Reservasi Member (Asosiasi) --");
                         System.out.print("Masukkan ID Member: ");
